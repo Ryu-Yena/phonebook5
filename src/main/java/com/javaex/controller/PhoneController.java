@@ -110,6 +110,49 @@ public class PhoneController {
 
 	}
 	
+	// 수정폼2 --> modifyForm2
+	@RequestMapping(value = "/modifyForm2", method = { RequestMethod.GET, RequestMethod.POST })
+	public String modifyForm2(@RequestParam("id") int id, Model model) {
+
+		System.out.println("수정폼");
+		System.out.println(id);
+
+		PersonVo personVo = phoneDao.getPerson(id);
+
+		model.addAttribute("personVo", personVo);
+		System.out.println(personVo.toString());
+
+		return "modifyForm";
+
+	}
+	
+	//수정 --> modify
+	@RequestMapping(value = "/modify", method = {RequestMethod.GET, RequestMethod.POST})
+	public String modify(@ModelAttribute PersonVo personVo) {
+		System.out.println("수정");
+		System.out.println(personVo.toString());
+		
+		int count = phoneDao.personUpdate(personVo);
+		
+		return "redirect:/phone/list";
+	}
+	
+	
+	//수정2 --> modify2
+	@RequestMapping(value = "/modify2", method = {RequestMethod.GET, RequestMethod.POST})
+	public String modify2(@RequestParam("personId") int personId,
+						  @RequestParam("name") String name,
+						  @RequestParam("hp") String hp,
+						  @RequestParam("company") String company) {
+		
+		System.out.println("수정2");
+		System.out.println(personId + "," + name + ", " + hp + ", " + company);
+		
+		int count = phoneDao.personUpdate2(personId, name, hp, company);
+		
+		return "redirect:/phone/list";
+	}
+	
 	/*
 	
 

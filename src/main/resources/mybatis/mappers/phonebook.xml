@@ -26,7 +26,7 @@
 	
 	
 	<!-- 전체 리스트 가져오기 -->
-	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+	<select id="selectList" resultType="PersonVo">
 		<![CDATA[
 	
 		select person_id as personId,
@@ -40,7 +40,7 @@
 	
 	
 	<!-- 전화번호 저장 -->
-	<insert id="insert" parameterType="com.javaex.vo.PersonVo">
+	<insert id="insert" parameterType="PersonVo">
 		<![CDATA[
 		insert into person
 		values (seq_person_id.nextval,
@@ -59,7 +59,7 @@
 	</delete>
 	
 	<!-- 전화번호 1개 가져오기 -->
-	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.PersonVo">
+	<select id="selectOne" parameterType="int" resultType="PersonVo">
 		<![CDATA[
 		select person_id,
 			   name,
@@ -69,5 +69,40 @@
 		where person_id = #{personId}
 		]]>
 	</select>
+	
+	<!-- 전화번호 1개 가져오기 -->
+	<select id="selectOne" parameterType="int" resultType="map">
+		<![CDATA[
+		select person_id "personId",
+			   name "name",
+			   hp "hp",
+			   company "company"
+		from person
+		where person_id = #{personId}
+		]]>
+	</select>
+	
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="PersonVo">
+		<![CDATA[
+		update person
+			   set name = #{name},
+			   hp = #{hp},
+			   company = #{company}
+			   where person_id = #{personId}		
+		]]>
+	</update>
+	
+	<!-- 수정 -->
+	<update id="update2" parameterType="map">
+		<![CDATA[
+		update person
+			   set name = #{name},
+			   hp = #{hp},
+			   company = #{company}
+			   where person_id = #{id}		
+		]]>
+	</update>
 	
 </mapper>
